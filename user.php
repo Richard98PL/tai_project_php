@@ -152,7 +152,6 @@ class User{
 	 while($row = mysqli_fetch_array($result))
 	 { 
 	print "<tr>"; 
-	print "<td>" . $row['id'] ."</td>";
 	print "<td>" . $row['username'] . "</td>"; 
 	print "<td>" . $row['place'] . "</td>"; 
 	print "<td>" . $row['tickets_quantity'] . "</td>";
@@ -185,8 +184,7 @@ class User{
 	 while($row = mysqli_fetch_array($result))
 	 { 
 	print "<tr>"; 
-	print "<td>". $row['id']."</td>";
-	print "<td><input name =\"new_username\" type=\"text\" value='"  . $row['username'] . "'  required></input></td>"; 
+	print "<td>". $row['username'] ."</td>"; 
 	print "<td><input name =\"new_email\" type=\"text\" value='"  . $row['email'] . "' required></input></td>";
 	print "<td><input name =\"new_name\" type=\"text\" value='"  . $row['name'] . "'></input></td>";
 	print "<td><input name =\"new_surname\" type=\"text\" value='"  . $row['surname'] . "'></input></td>";
