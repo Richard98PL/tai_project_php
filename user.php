@@ -174,7 +174,6 @@ class User{
   	<form action=\"success_on_profile_change.php\" class=\"profile_form\" method=\"post\">
 	  <table class=\"profile_table\">
 	   <tr>
-	  <td>Id</td>
 	  <td>Nazwa użytkownika</td>
 	  <td>Email</td> 
 	  <td>Imie</td> 
