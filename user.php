@@ -69,7 +69,7 @@ class User{
 
   	$_SESSION['username'] = $this->username;
   	$_SESSION['success'] = "Jesteś zalogowany.";
-  	//header('location: index.php');
+  	header('location: index.php');
   	$result = mysqli_query($this->db, $query);
 
   	if(! $result ) {
