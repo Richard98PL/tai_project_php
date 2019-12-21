@@ -19,20 +19,20 @@ $db = mysqli_connect($SERVER,$LOGIN,$PASSWORD,$DATABASE_NAME) or die('Error conn
 // CREATE USER
 $user = new User($db);
 
-$test_query = "SHOW TABLES FROM $DATABASE_NAME";
-$result = mysqli_query($db, $test_query);
+// $test_query = "SHOW TABLES FROM $DATABASE_NAME";
+// $result = mysqli_query($db, $test_query);
 
-$tblCnt = 0;
-while($tbl = mysqli_fetch_array($result)) {
-  $tblCnt++;
-  #echo $tbl[0]."<br />\n";
-}
+// $tblCnt = 0;
+// while($tbl = mysqli_fetch_array($result)) {
+//   $tblCnt++;
+//   #echo $tbl[0]."<br />\n";
+// }
 
-if (!$tblCnt) {
-  echo "There are no tables<br />\n";
-} else {
-  echo "There are $tblCnt tables<br />\n";
-} 
+// if (!$tblCnt) {
+//   echo "There are no tables<br />\n";
+// } else {
+//   echo "There are $tblCnt tables<br />\n";
+// } 
 
 
 if (isset($_POST['reg_user'])) {
