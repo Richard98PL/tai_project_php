@@ -152,6 +152,7 @@ class User{
 	 while($row = mysqli_fetch_array($result))
 	 { 
 	print "<tr>"; 
+	print "<td>" . $row['id'] ."</td>";
 	print "<td>" . $row['username'] . "</td>"; 
 	print "<td>" . $row['place'] . "</td>"; 
 	print "<td>" . $row['tickets_quantity'] . "</td>";
