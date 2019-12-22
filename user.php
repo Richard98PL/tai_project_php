@@ -163,7 +163,6 @@ class User{
 	print "<td>" . $row['tickets_quantity'] . "</td>";
 	print "<td>" . $row['gift_quantity'] . "</td>";
 	$vipBool;
-	echo $row['isVip'];
 	if($row['isVip'] == 1){
 		$vipBool = 'Tak';
 	}else{
