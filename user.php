@@ -306,7 +306,7 @@ class User{
 		}
 
 	 if (count($this->errors) == 0) {
-	  	$query = "UPDATE user SET username = '$this->new_username', email = '$this->new_email', name = '$this->new_name', surname = '$this->new_surname' WHERE id ='$this->user_id' ";
+	  	$query = "UPDATE user SET username = 'email = '$this->new_email', name = '$this->new_name', surname = '$this->new_surname' WHERE id ='$this->user_id' ";
   		mysqli_query($this->db, $query);
   		header('location: success_on_profile_change.php');
 	}else{
