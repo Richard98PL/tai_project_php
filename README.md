@@ -1,7 +1,7 @@
 # tai_project_php
 tai_project_php
 
-https://richard98pl.github.io/tai_project_php
+https://tai-mysql.herokuapp.com/login.php
 
 MySQL : https://remotemysql.com/databases.php
 
