@@ -37,6 +37,37 @@ class User{
 		 array_push($this->errors, "Hasła do siebie nie pasują");
 	  }
 
+	  //walidacja hasła regex
+
+	  $args = array(
+	  			'password_1' => ['filter' => FILTER_VALIDATE_REGEXP,
+	  							 'options' => ['regexp' => '/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/'] // Minimum 6 characters, at least one letter and one number:
+	  			],
+	  			'username' => ['filter' => FILTER_VALIDATE_REGEXP,
+	  						   'options' => ['regexp' => "/^[a-z0-9_-]{3,15}$/"] //3-15 i znane znaki
+	  			],
+	  			'email' => FILTER_VALIDATE_EMAIL
+	  		);
+
+	  $dane = filter_input_array(INPUT_POST, $args);
+
+	  foreach($dane as $key => $val){
+	  	if($val === false or $val === NULL){
+
+	  		if($key == 'password_1'){
+	  		array_push($this->errors, 'Hasło co najmniej 6 znaków, 1 cyfra i 1 znak');
+	  		}
+	  		
+	  		if($key == 'username'){
+	  		array_push($this->errors, 'Nazwa użytkownika od 3 do 15 znaków, znaki małe, cyfry lub podkreślenia');
+	  		}
+
+	  		if($key == 'email'){
+	  		array_push($this->errors, 'Niepoprawny adres e-mail.');
+	  		}
+	  	
+	 	 }
+		}
 	  // first check the database to make sure 
 	  // a user does not already exist with the same username and/or email
 	  $user_check_query = "SELECT * FROM user WHERE username='$this->username' OR email='$this->email' LIMIT 1";
@@ -183,7 +214,7 @@ class User{
   	$result = mysqli_query($this->db, $query);
 
   	print "
-  	<form action=\"success_on_profile_change.php\" class=\"profile_form\" method=\"post\">
+  	<form class=\"profile_form\" method=\"post\">
 	  <table class=\"profile_table\">
 	   <tr>
 	  <td>Nazwa użytkownika</td>
@@ -232,22 +263,55 @@ class User{
 
   }
 
-  private $new_username;
   private $new_email;
   private $new_name;
   private $new_surname;
   private $user_id;
 
-  function update_user($_new_username,$_new_email,$_new_name, $_new_surname,$_user_id){
+  function update_user($_new_email,$_new_name, $_new_surname,$_user_id){
 
-  	$this->new_username = $_new_username;
   	$this->new_email = $_new_email;
   	$this->new_name = $_new_name;
   	$this->new_surname = $_new_surname;
   	$this->user_id = $_user_id;
 
-  	$query = "UPDATE user SET username = '$this->new_username', email = '$this->new_email', name = '$this->new_name', surname = '$this->new_surname' WHERE id ='$this->user_id' ";
-  	mysqli_query($this->db, $query);
+  	$args = array(
+	  			'new_name' => ['filter' => FILTER_VALIDATE_REGEXP,
+	  							 'options' => ['regexp' => '/^[A-Z]{1}[a-ząęłńśćźżó-]{1,25}$/'] // z wielkiej litery polskie znaki 1-25
+	  			],
+	  			'new_surname' => ['filter' => FILTER_VALIDATE_REGEXP,
+	  						   'options' => ['regexp' => '/^[A-Z]{1}[a-ząęłńśćźżó-]{1,25}$/'] // z wielkiej litery polskie znaki 1-25
+	  			],
+	  			'new_email' => FILTER_VALIDATE_EMAIL
+	  		);
+
+	  $dane = filter_input_array(INPUT_POST, $args);
+
+	  foreach($dane as $key => $val){
+	  	if($val === false or $val === NULL){
+
+	  		if($key == 'email'){
+	  		array_push($this->errors, 'Niepoprawny email.');
+	  		}
+	  		
+	  		if($key == 'new_name'){
+	  		array_push($this->errors, 'Imię z wielkiej litery, do 25 znaków.');
+	  		}
+
+	  		if($key == 'new_surname'){
+	  		array_push($this->errors, 'Nazwisko z wielkiej litery, do 25 znaków.');
+	  		}
+	  	
+	 	 }
+		}
+
+	 if (count($this->errors) == 0) {
+	  	$query = "UPDATE user SET username = '$this->new_username', email = '$this->new_email', name = '$this->new_name', surname = '$this->new_surname' WHERE id ='$this->user_id' ";
+  		mysqli_query($this->db, $query);
+  		header('location: success_on_profile_change.php');
+	}else{
+		$this->get_profile();
+	}	
   }
 
   private $old_password;
@@ -259,21 +323,37 @@ class User{
   	$this->new_password_1 = $_new_password_1;
   	$this->new_password_2 = $_new_password_2;
 
+  		$args = array(
+	  			'new_password_1' => ['filter' => FILTER_VALIDATE_REGEXP,
+	  							 'options' => ['regexp' => '/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/'] // Minimum 6 characters, at least one letter and one number:
+	  			]
+	  		);
+
+	  $dane = filter_input_array(INPUT_POST, $args);
+
+	  foreach($dane as $key => $val){
+	  	if($val === false or $val === NULL){
+	  		if($key == 'new_password_1'){
+	  		array_push($this->errors, 'Hasło co najmniej 6 znaków, 1 cyfra i 1 znak');
+	 	 }
+		}
+	}
+
   	 if (empty($this->old_password)) { 
 	    array_push($this->errors, "Wymagane podanie starego hasła."); 
-	    $this->get_profile();
+
 	  }
 	  if (empty($this->new_password_1)) { 
 	    array_push($this->errors, "Wymaganie podania nowego hasła."); 
-	    $this->get_profile();
+
 	  }
 	  if (empty($this->new_password_2)) { 
 	    array_push($this->errors, "Wymagane podanie potwierdzenia nowego hasła."); 
-	    $this->get_profile();
+
 	  }
 	  if ($this->new_password_1 != $this->new_password_2) {
 		 array_push($this->errors, "Hasła do siebie nie pasują.");
-		 $this->get_profile();
+
 	  }
 	  	$username = $_SESSION['username'];
 	  	$this->old_password = md5($this->old_password);
@@ -283,11 +363,12 @@ class User{
 	  	if (mysqli_num_rows($results) == 1) {  
 	  	}else {
 	  		array_push($this->errors, "Złe stare hasło.");
-	  		$this->get_profile();
 	  	}
 
 	  if (count($this->errors) == 0) {
 	  		$this->update_password($this->new_password_1, $_SESSION['username']);
+	}else{
+		$this->get_profile();
 	}
 
   }

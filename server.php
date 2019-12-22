@@ -94,13 +94,12 @@ if ( isset($_POST['buy_tickets']) ) {
 
  if ( isset($_POST['update_user']) ){
 
-  $new_username = mysqli_real_escape_string($db,$_POST['new_username']);
   $new_email = mysqli_real_escape_string($db,$_POST['new_email']);
   $new_name = mysqli_real_escape_string($db,$_POST['new_name']);
   $new_surname = mysqli_real_escape_string($db,$_POST['new_surname']);
   $user_id = mysqli_real_escape_string($db,$_POST['id']);
 
-  $user->update_user($new_username,$new_email,$new_name,$new_surname,$user_id);
+  $user->update_user($new_email,$new_name,$new_surname,$user_id);
  }
 
  if ( isset($_POST['update_password']) ){
