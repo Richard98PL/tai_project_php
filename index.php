@@ -115,7 +115,7 @@
             let vip = document.getElementById("vip").value;
             let total = ( ( (place*tickets) + (giftNum*15) ) * vip).toFixed(2) + " PLN";
 
-            document.getElementById('cost').value = ((place*tickets) + (giftNum*15) * vip).toFixed(2);
+            document.getElementById('cost').value = ( ( (place*tickets) + (giftNum*15) ) * vip).toFixed(2);
 
             if(place == 0){
               total = '0.00 PLN';
