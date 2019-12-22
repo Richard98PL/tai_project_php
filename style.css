@@ -73,6 +73,16 @@ body {
   border-radius: 5px;
 }
 
+.btn_disabled {
+  padding: 10px;
+  font-size: 15px;
+  width: 100%;
+  color: white;
+  background: #006600;
+  border: none;
+  border-radius: 5px;
+}
+
 .btn:hover {
   background: #16f051;
   cursor : pointer;

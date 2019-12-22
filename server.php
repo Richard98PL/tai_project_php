@@ -76,8 +76,8 @@ if ( isset($_POST['buy_tickets']) ) {
     $date = date("Y-m-d H:i:s");
 
     switch (mysqli_real_escape_string($db, $_POST['isVip'])){
-      case 1: $isVip = false; break;
-      default: $isVip = true;
+      case 1: $isVip = 0; break;
+      default: $isVip = 1;
     }
 
     $user->buy_tickets($place,$tickets_quantity,$gift_quantity,$isVip,$cost,$date);

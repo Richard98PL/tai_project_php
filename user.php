@@ -129,7 +129,12 @@ class User{
 
   	$query = "INSERT INTO tickets (username,place,tickets_quantity,gift_quantity,isVip,cost,date) 
   			  VALUES('$ticket_username', '$this->place', '$this->tickets_quantity','$this->gift_quantity','$this->isVip','$this->cost','$this->date')";
-  	mysqli_query($this->db, $query);
+  	$result = mysqli_query($this->db, $query);
+
+  	if(! $result ) {
+               die('Could not enter data: ' . mysqli_error($this->db));
+            }
+  
   }
 
   function get_history(){
@@ -157,7 +162,14 @@ class User{
 	print "<td>" . $row['place'] . "</td>"; 
 	print "<td>" . $row['tickets_quantity'] . "</td>";
 	print "<td>" . $row['gift_quantity'] . "</td>";
-	print "<td>" . $row['isVip'] . "</td>";
+	$vipBool;
+	echo $row['isVip'];
+	if($row['isVip'] == 1){
+		$vipBool = 'Tak';
+	}else{
+		$vipBool = 'Nie';
+	}
+	print "<td>" . $vipBool . "</td>";
 	print "<td>" . $row['cost'] . "</td>";
 	print "<td>" . $row['date'] . "</td>"; 
 	print "</tr>"; 

@@ -97,14 +97,14 @@
 
              <div class="input-group">
                  <label>Koszt całkowity: </label>
-                 <span id="result" style="background-color: #7527b0;color: #fff;padding: 6px 70px;font-weight: 600;font-size: 18px;border-radius: 5px;">0 PLN</span>
+                 <span id="result" style="background-color: #7527b0;color: #fff;padding: 6px 70px;font-weight: 600;font-size: 18px;border-radius: 5px;">0.00 PLN</span>
                  <input  id="cost" name="cost" hidden>
              </div>
 
 
 
     <div class="input-group">
-      <button type="submit" class="btn" name="buy_tickets" disabled id="buy_tickets">Wybierz miejsca</button>
+      <button type="submit" class="btn_disabled" name="buy_tickets" id="buy_tickets" disabled >Wybierz miejsca</button>
     </div>
       
       <script>
@@ -118,16 +118,18 @@
             document.getElementById('cost').value = ((place*tickets) + (giftNum*15) * vip).toFixed(2);
 
             if(place == 0){
-              total = 0;
+              total = '0.00 PLN';
             }
             console.log(total);
             document.getElementById("result").innerHTML = total;
-            if(total != '0 PLN'){
+            if(total != '0.00 PLN'){
               document.getElementById("buy_tickets").disabled = false;
               document.getElementById("buy_tickets").innerHTML = "Kup bilety";
+              document.getElementById("buy_tickets").className = "btn";
             }else{
-              document.getElementById("buy_tickets").disbaled = true;
               document.getElementById("buy_tickets").innerHTML = "Wybierz miejsca";
+              document.getElementById("buy_tickets").disabled = true;
+              document.getElementById("buy_tickets").className = "btn_disabled";
             }
         }
     </script>
