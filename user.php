@@ -41,7 +41,7 @@ class User{
 
 	  $args = array(
 	  			'password_1' => ['filter' => FILTER_VALIDATE_REGEXP,
-	  							 'options' => ['regexp' => '/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/'] // Minimum 6 characters, at least one letter and one number:
+	  							 'options' => ['regexp' => "/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/"] // Minimum 6 characters, at least one letter and one number:
 	  			],
 	  			'username' => ['filter' => FILTER_VALIDATE_REGEXP,
 	  						   'options' => ['regexp' => "/^[a-z0-9_-]{3,15}$/"] //3-15 i znane znaki
@@ -50,12 +50,13 @@ class User{
 	  		);
 
 	  $dane = filter_input_array(INPUT_POST, $args);
+	  var_dump($_POST);
 
 	  foreach($dane as $key => $val){
 	  	if($val === false or $val === NULL){
 
 	  		if($key == 'password_1'){
-	  		array_push($this->errors, 'Hasło co najmniej 6 znaków, 1 cyfra i 1 znak');
+			  array_push($this->errors, 'Hasło co najmniej 6 znaków, 1 cyfra i 1 znak duży');
 	  		}
 	  		
 	  		if($key == 'username'){
