@@ -50,7 +50,6 @@ class User{
 	  		);
 
 	  $dane = filter_input_array(INPUT_POST, $args);
-	  var_dump($_POST);
 
 	  foreach($dane as $key => $val){
 	  	if($val === false or $val === NULL){
