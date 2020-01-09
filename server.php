@@ -5,10 +5,15 @@ include('user.php');
 
 //default mySQL port is 3306 :)
 
-  $DATABASE_NAME = 'tai_project';
-  $SERVER = 'localhost';
-  $LOGIN = 'root';
-  $PASSWORD = '';
+//   $DATABASE_NAME = 'tai_project';
+//   $SERVER = 'localhost';
+//   $LOGIN = 'root';
+//   $PASSWORD = '';
+
+$DATABASE_NAME = 'YmXJZhIq7a';
+$SERVER = 'remotemysql.com';
+$LOGIN = 'YmXJZhIq7a';
+$PASSWORD = '3FEUqbSX8j';
 
 // connect to the database
 $db = mysqli_connect($SERVER,$LOGIN,$PASSWORD,$DATABASE_NAME) or die('Error connecting to mysql: '.mysqli_error());
